@@ -9,7 +9,7 @@ const userSchema = new Schema({
         minLength: [5, 'Username must be 5 characters or more'],
         unique: true
     },
-    password: {
+    password_digest: {
         type: String,
         required: true,
         minLength: [8, 'Password must be 8 characters or more']
