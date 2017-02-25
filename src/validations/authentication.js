@@ -3,7 +3,7 @@ import db from '../models';
 import isEmpty from 'lodash/isEmpty';
 import bcrypt from 'bcrypt';
 
-function validateLogin(data){
+function validateAuthentication(data){
     const {  userInput, password } = data;
     const errors = {};
     if(validator.isEmpty(userInput)){
@@ -22,6 +22,7 @@ function validateLogin(data){
                 }
                 return {
                     isValid: isEmpty(errors),
+                    user,
                     errors
                 };
             });
@@ -35,4 +36,4 @@ function validateLogin(data){
     });
 }
 
-export default validateLogin;
+export default validateAuthentication;
