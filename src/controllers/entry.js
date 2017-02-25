@@ -3,9 +3,10 @@ import db from '../models';
 const entryController = {};
 
 entryController.post = function(req,res){
-    const { category, description, amount,_user, year, month, day } = req.body;
+    const { userId } = req.user;
+    const { category, description, amount, year, month, day } = req.body;
     const entry = new db.Entry({
-        _user,
+        _user: userId,
         amount,
         category,
         day,
@@ -26,11 +27,10 @@ entryController.post = function(req,res){
 };
 
 entryController.getAll = function(req,res){
-    const { userId } = req.body;
+    const { userId } = req.user;
     db.Entry.find({
         _user: userId
     }).select('description amount date category').then(entries => {
-        console.log(entries);
         res.status(200).json({
             sucess: true,
             entries
@@ -43,9 +43,11 @@ entryController.getAll = function(req,res){
 };
 
 entryController.getByMonth = function(req,res){
-    const { userId, month, year } = req.body;
+    const { userId } = req.user;
+    const { month, year } = req.body;
     db.Entry.find({
         _user: userId,
+        year: year,
         month: month
     }).select('description amount year month day category').then(entries=> {
         res.status(200).json({
@@ -57,11 +59,11 @@ entryController.getByMonth = function(req,res){
             errors: err
         });
     });
-
 };
 
 entryController.getByYear = function(req,res){
-    const { userId, year } = req.body;
+    const { userId } = req.user;
+    const { year } = req.body;
     db.Entry.find({
         _user: userId,
         year: year
@@ -75,7 +77,6 @@ entryController.getByYear = function(req,res){
             errors: err
         });
     });
-
 };
 
 export default entryController;
