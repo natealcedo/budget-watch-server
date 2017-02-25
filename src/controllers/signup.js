@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import db from '../models';
+import models from '../models';
 import isEmpty from 'lodash/isEmpty';
 import validator from 'validator';
 
@@ -16,7 +16,7 @@ signupController.post = function(req,res){
                 if(err){
                     throw err;
                 }
-                const user = new db.User({
+                const user = new models.User({
                     username,
                     email,
                     password_digest
