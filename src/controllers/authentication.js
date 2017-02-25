@@ -13,7 +13,7 @@ authenticationController.authentication = function(req,res){
             jwt.sign({
                 username: user.username,
                 email: user.email,
-                id: user._id
+                userId: user._id
             }, config.jwtSecret, {
                 expiresIn: '1h'
             }, (err, token)=>{
