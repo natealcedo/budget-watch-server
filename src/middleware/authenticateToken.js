@@ -17,15 +17,26 @@ export default function authenticateToken(req, res, next){
                     error: 'Failed to authenticate'
                 });
             } else {
+                console.log(decodedToken);
                 models.User.find({ _id: decodedToken.id}).then(user =>{
                     if(!user){
                         res.status(404).json({
                             error: 'No such user'
                         });
                     } else {
+                        const user = {
+                            userId: user._id,
+                            email: user.email,
+                            username: user.username
+                        };
                         req.user = user;
                         next();
                     }
+                }).catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
                 });
             }
         });
