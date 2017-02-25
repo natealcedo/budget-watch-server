@@ -1,11 +1,12 @@
-import db from '../models';
 import bcrypt from 'bcrypt';
-import validateLogin from '../validations/login';
+import db from '../models';
 import isEmpty from 'lodash/isEmpty';
-const loginController = {};
+import validateLogin from '../validations/login';
 
-loginController.login = function(req,res){
-    validateLogin(req.body).then(({isValid, errors})=>{
+const authenticationController = {};
+
+authenticationController.authentication = function(req,res){
+    validateLogin(req.body).then(({ isValid, errors })=>{
         if(isValid){
             res.status(200).json({
                 sucess: true,
@@ -19,4 +20,4 @@ loginController.login = function(req,res){
     });
 };
 
-export default loginController;
+export default authenticationController;

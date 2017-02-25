@@ -1,7 +1,7 @@
-import db from '../models';
-import validator from 'validator';
-import isEmpty from 'lodash/isEmpty';
 import bcrypt from 'bcrypt';
+import db from '../models';
+import isEmpty from 'lodash/isEmpty';
+import validator from 'validator';
 
 import validateInput from '../validations/signup';
 
@@ -27,20 +27,15 @@ signupController.post = function(req,res){
                         user: newUser
                     });
                 }).catch(err =>{
-                    res.status(500).json({
-                        error: err
-                    });
+                    res.status(500).json({error: err});
                 });
             }); 
         } else {
             res.json({ errors });
         }
     }).catch(err => {
-        res.status(500).json({
-            error: err
-        });
+        res.status(500).json({error: err});
     });
-
 };
 
 export default signupController;

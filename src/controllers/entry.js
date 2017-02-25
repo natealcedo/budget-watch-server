@@ -5,13 +5,13 @@ const entryController = {};
 entryController.post = function(req,res){
     const { category, description, amount,_user, year, month, day } = req.body;
     const entry = new db.Entry({
-        category,
-        description,
+        _user,
         amount,
-        year,
-        month,
+        category,
         day,
-        _user
+        description,
+        month,
+        year,
     });
     entry.save().then(newEntry => {
         res.status(201).json({

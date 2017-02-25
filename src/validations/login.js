@@ -12,7 +12,7 @@ function validateLogin(data){
     if(validator.isEmpty(password)){
         errors.password = 'password is required';
     }
-    return db.User.find({$or:[{ username: userInput }, { email: userInput }]}).then(existingUser =>{
+    return db.User.find({ $or:[{ username: userInput }, { email: userInput }] }).then(existingUser =>{
         if(existingUser.length > 0){
             // User exists, check if password matches hash
             const user = existingUser[0];
