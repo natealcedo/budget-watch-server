@@ -24,7 +24,6 @@ function validateInput(data){
     errors.passwordConfirm = "password is required";
   }
   if(!validator.equals(password,passwordConfirm)){
-    errors.password = "passwords must match";
     errors.passwordConfirm = "passwords must match";
   }
   if(!validator.isEmail(email)){
