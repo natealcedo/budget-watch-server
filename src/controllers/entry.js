@@ -20,7 +20,7 @@ entryController.post = function(req,res){
       newEntry
     });
   }).catch(err => {
-    res.statu(500).json({
+    res.status(500).json({
       errors: err
     });
   });
