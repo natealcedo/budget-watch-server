@@ -30,7 +30,7 @@ entryController.getAll = function(req,res){
   const { userId } = req.user;
   db.Entry.find({
     _user: userId
-  }).select("description amount date category").then(entries => {
+  }).select("description amount day month year category").then(entries => {
     res.status(200).json({
       sucess: true,
       entries
