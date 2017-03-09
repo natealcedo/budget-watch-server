@@ -79,4 +79,20 @@ entryController.getByYear = function(req,res){
   });
 };
 
+
+entryController.deleteEntry = function(req, res){
+  const { id } = req.body;
+  console.log(id);
+  db.Entry.findByIdAndRemove(id).then(() => {
+    res.status(200).json({
+      success: true
+    });
+  }).catch(err => {
+    res.status(404).json({
+      success: false,
+      errors: "Entry does not exist"
+    });
+  });
+};
+
 export default entryController;
