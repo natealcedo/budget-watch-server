@@ -82,7 +82,6 @@ entryController.getByYear = function(req,res){
 
 entryController.deleteEntry = function(req, res){
   const { id } = req.body;
-  console.log(id);
   db.Entry.findByIdAndRemove(id).then(() => {
     res.status(200).json({
       success: true
