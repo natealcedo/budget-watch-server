@@ -1,27 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import app from "./app";
 
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import morgan from 'morgan';
-
-import routes from './routes';
-
-const app = express();
-
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use('/api', routes);
-
-mongoose.connect(process.env.DB, (err)=>{
-    if (err){
-        throw err;
-    } else {
-        console.log('Connected to DB');
-    }
-});
-
-app.listen(process.env.PORT, ()=>{
-    console.log('Server started Running on port', process.env.PORT);
+app.listen(process.env.port, () => {
+  if(process.env.NODE_ENV === "dev"){
+    console.log("Server started on port", process.env.PORT);
+  }
 });
