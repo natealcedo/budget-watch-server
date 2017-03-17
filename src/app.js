@@ -7,13 +7,19 @@ import routes from "./routes";
 
 const app = express();
 
-app.use(morgan("dev"));
+if(process.env.NODE_ENV !== "test"){
+  app.use(morgan("dev"));
+}
 app.use(bodyParser.json());
 app.use("/api", routes);
+app.all("/", (req,res) => {
+  res.status(404).json({
+    error: "Resource not found"
+  });
+});
 
 mongoose.connect(process.env.DB, (err)=>{
   if (err){
-    console.error(err);
     throw err;
   } else {
     if(process.env.NODE_ENV === "dev"){
