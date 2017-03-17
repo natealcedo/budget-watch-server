@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import config from "../../config";
 import models from "../models";
 
 export default function authenticateToken(req, res, next){
@@ -11,7 +10,7 @@ export default function authenticateToken(req, res, next){
   }
 
   if(token){
-    jwt.verify(token, config.jwtSecret, (err, decodedToken)=>{
+    jwt.verify(token, process.env.JWT, (err, decodedToken)=>{
       if(err){
         res.status(401).json({
           error: "Failed to authenticate"
