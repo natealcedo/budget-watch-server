@@ -1,4 +1,3 @@
-import app from "../src/app";
 import bcrypt from "bcrypt";
 import chai, { expect } from "chai";
 import chaitHttp from "chai-http";
@@ -9,21 +8,25 @@ import signup from "../src/validations/signup";
 chai.use(chaitHttp);
 
 describe("Sign up Validations", () => {
-  before(() => {
+  before((done) => {
     mongoose.createConnection(process.env.DB);
     const user = new models.User({
       username: "ndaljr",
       password_digest: "Cd5f9d33ee",
       email: "ndaljr@gmail.com"
     });
-    return user.save().catch(err => {
+    user.save().then(() => {
+      console.log("BEFORE 2");
+      done();
+    }).catch(err => {
       throw err;
     });
   });
 
-  after(() => {
-    return models.User.remove({}).then(() => {
-      mongoose.disconnect();
+  after((done) => {
+    models.User.remove({}).then(() => {
+      console.log("AFTER 2");
+      done();
     }).catch(err => {
       throw err;
     }); 
