@@ -5,11 +5,14 @@ import isEmpty from "lodash/isEmpty";
 function validateInput(data){
   const { username, password, passwordConfirm, email } = data;
   const errors = {};
+  if(username.length < 5 ){
+    errors.username = "username should be a minimum length of 5 characters";
+  }
   if(validator.isEmpty(username)){
     errors.username = "username is required";
   }
-  if(username.length < 5 ){
-    errors.username = "username should be a minimum length of 5 characters";
+  if(!validator.equals(password,passwordConfirm)){
+    errors.passwordConfirm = "passwords must match";
   }
   if(password.length < 8){
     errors.password = "password should be a minimum length of 8 characters";
@@ -23,11 +26,11 @@ function validateInput(data){
   if(validator.isEmpty(passwordConfirm)){
     errors.passwordConfirm = "password is required";
   }
-  if(!validator.equals(password,passwordConfirm)){
-    errors.passwordConfirm = "passwords must match";
-  }
   if(!validator.isEmail(email)){
     errors.email = "must be a valid email address";
+  }
+  if(validator.isEmpty(email)){
+    errors.email = "email is required";
   }
   return db.User.find({$or:[{ username: username }, { email: email }]}).then(user =>{
     if(user.length > 0){
@@ -43,6 +46,8 @@ function validateInput(data){
       isValid: isEmpty(errors),
       errors
     }; 
+  }).catch(err => {
+    throw err;
   });
 }
 
