@@ -34,6 +34,6 @@
     "build": "npm run clean && mkdir dist && babel src -s -d dist",
     "clean": "rm -rf dist",
     "production": "npm run build && node ./dist/index.js",
-    "test": "PORT=3010 NODE_ENV=test DB=mongodb://localhost:27017/test JWT=jwtsecret nodemon --exec 'mocha --recursive -R landing --compilers js:babel-core/register'"
+    "test": "PORT=3010 NODE_ENV=test DB=mongodb://localhost:27017/test JWT=jwtsecret nodemon --exec 'mocha --recursive --compilers js:babel-core/register'"
   }
 }
