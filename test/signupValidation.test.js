@@ -16,7 +16,6 @@ describe("Sign up Validations", () => {
       email: "ndaljr@gmail.com"
     });
     user.save().then(() => {
-      console.log("BEFORE 2");
       done();
     }).catch(err => {
       throw err;
@@ -25,7 +24,6 @@ describe("Sign up Validations", () => {
 
   after((done) => {
     models.User.remove({}).then(() => {
-      console.log("AFTER 2");
       done();
     }).catch(err => {
       throw err;
